@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="jQuery/jquery-3.1.1.js"></script>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css" media="screen">
+		#move {
+			background: green;
+			width: 80px;
+			height: 80px;
+			left: 10px;
+			top:10px;
+			position:absolute;
+			text-align:center;
+			vertical-align:middle;
+			line-height:26.6px;/*should be equal to height/3*/
+		}
+		</style>
+	</head>
+	<body>
+		<div id="move">
+			A box can move.
+		</div>
+		<p>queue length:<span></span></p>
+		<p>queue description in the console</p>
+
+		<script type="text/javascript">
+			//----------------------------------------------------------------------------------
+			// .queue("queue_name")
+			// this method return an array of functions
+			var green_box = $('#move');
+			function moveTheBox () {
+				green_box.animate({left:"+=200"},1000)
+						 .slideToggle(500)
+						 .slideToggle(500)
+						 .animate({left:"-=200"},1000)
+						 .animate({left:"0"},1,moveTheBox);						 
+			}
+			function showQueue () {
+				// here to get the queue,'fx' is the default queue_name 
+				var n = green_box.queue("fx");
+				$('span').text(n.length);
+				//console.log(n);
+				setTimeout(showQueue,100);
+			}
+			
+			showQueue();
+			moveTheBox();
+			
+			//----------------------------------------------------------------------------------
+			//.queue("queue_name",newQueue)
+			//newQueue could be an array or a new function
+			//if array, array should contain some new function to replace the old queue contents
+			//if function, the function will be a callback, 
+			//this function will be added to the queue.
+			//----------------------------------------------------------------------------------
+			//this example explain how the .queue() works by param type array.
+			
+			//.dequeue("queue_name")
+			//get first function in the array of queueu, and execute it
+			var dequeueFunList = function () {
+				$('#move').dequeue('animateList');
+			};
+			//function array
+			var animateList = [
+				function(){$('#move').animate({top:"+=50"},500,dequeueFunList);},
+				function(){$('#move').animate({top:"+=50"},500,dequeueFunList);},
+				function(){$('#move').animate({top:"+=50"},500,dequeueFunList);},
+				function(){$('#move').animate({top:"+=50"},500,dequeueFunList);},
+				function(){$('#move').animate({top:"+=50"},500,dequeueFunList);}
+			];
+			
+			green_box.queue('animateList',animateList);
+			dequeueFunList();
+			//in the result, we find another thing that is this animate function is single thread,
+			//queue fx and animateList can not execute at the same time
+			
+			//------------------------------------------------------------------------------------
+			//this example explain how the .queue() works by param type callback.
+			
+		</script>
+	</body>
+</html>
