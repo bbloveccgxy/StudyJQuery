@@ -24,6 +24,7 @@
 		</div>
 		<p>queue length:<span></span></p>
 		<p>queue description in the console</p>
+		<button	id="stop">stop</button> 
 
 		<script type="text/javascript">
 			//----------------------------------------------------------------------------------
@@ -78,6 +79,18 @@
 			
 			//------------------------------------------------------------------------------------
 			//this example explain how the .queue() works by param type callback.
+			green_box.queue('animateList',function(){
+				green_box.queue('fx',[]);//clear queue with empty array
+				alert("animation complete");
+				dequeueFunList();
+			})
+			//------------------------------------------------------------------------------------
+			
+			//.clearQueue() function
+			//if no parameters,this function will clear all the animation in the queue.
+			$('#stop').click(function(){
+				green_box.clearQueue('animateList');
+			})
 			
 		</script>
 	</body>
