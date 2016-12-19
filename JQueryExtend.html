@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="jQuery/jquery-3.1.1.js"></script>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<label for="checked_input">checked input</label><input type="checkbox" name="checked_input" value="" id="checked_input">
+		<label for="unchecked_input">unchecked input</label><input type="checkbox" name="unchecked_input" value="" id="unchecked_input">
+		
+		<script type="text/javascript">
+			//jQuery.fn.extend()
+			jQuery.fn.extend({
+				check: function () {
+					return this.each(function () {
+						this.checked = true;
+					});
+				},
+				uncheck: function () {
+					return this.each(function () {
+						this.checked = false;
+					});
+				}
+			});
+			
+			console.log($('#checked_input').check());
+			console.log($('#unchecked_input').uncheck());
+			//-------------------------------------------------------------
+			//jQuery.extend()
+			jQuery.extend({
+				min:function (a,b) {
+					return a < b ? a:b;
+				},
+				max:function (a,b) {
+					return a > b ? a:b;
+				}
+			});
+			
+			var a = 1;
+			var b = 2;
+			
+			console.log($.min(a,b));//log 1
+			console.log($.max(a,b));//log 2
+			
+			//-------------------------------------------------------------
+			//jQuery.noConflict()
+			var jq = jQuery.noConflict();
+			console.log(jq('#checked_input'));
+		</script>
+	</body>
+</html>
