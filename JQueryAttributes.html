@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="jQuery/jquery-3.1.1.js"></script>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css" media="screen">
+		.pClass {
+			background:red;
+			color:yellow;
+		}
+		</style>
+	</head>
+	<body>
+		<img id="testImg" src="https://www.baidu.com/img/bd_logo1.png" alt="This is a test image" />
+		<input type="checkbox" name="checkbox" value="" id="checkbox" />
+		<p>firstP</p>
+		<p>secondP</p>
+		<script type="text/javascript">
+		
+			//.attr()
+			//.attr("property_name")  return the value of property
+			console.log($('#testImg').attr('src'));
+			//---------------------------------------------------------------------------------------
+			//.attr('attribute', 'value') set vavlue for a single property
+			$('#testImg').attr('src', 'http://img6.bdstatic.com/img/image/smallpic/xingkong1215.jpg')
+			//---------------------------------------------------------------------------------------
+			//.attr({
+			//	attribute1: 'value1',
+			//	attribute2: 'value2'      set value for multiple properties
+			//})
+			$('#testImg').attr({
+				src: 'https://www.baidu.com/img/bd_logo1.png',
+				alt: 'this is another string'
+			})
+			//---------------------------------------------------------------------------------------
+			//.attr('attribute',fucntion(){}) set value by callback
+			$('#testImg').attr('title',function () {
+				return 'the url of this image is :'+this.src;
+			});
+			//---------------------------------------------------------------------------------------
+			
+			//.removeAttr('property_name')
+			// alt text will be replaced by title
+			$('#testImg').removeAttr('alt');
+			//---------------------------------------------------------------------------------------
+			
+			//.prop() .removeProp()
+			//usage of prop() and removeProp() is same as attr()
+			//---------------------------------------------------------------------------------------
+			
+			//.addClass()
+			$('p').last().addClass('pClass');
+			$('p').first().addClass(function (index, currentClass) {
+				if (currentClass == '') {
+					console.log(this);
+					return 'pClass';
+				}
+			})
+			//---------------------------------------------------------------------------------------
+			
+			//.removeClass('class_name')
+			$('p').last().removeClass();//if without parameter,remove all classes of object
+			$('p').first().removeClass(function(){
+				return 'pClass';
+			});
+			//---------------------------------------------------------------------------------------
+			
+			//.toggleClass('class_name')  .toggleClass(function(){}) is same as .addClass()
+			//add the class if it does not exist, remove the class if it exists
+			$('p').toggleClass('pClass');
+			$('p').last().toggleClass('pClass');
+			//---------------------------------------------------------------------------------------
+			
+			//html() availabel(html,xhtml)
+			//get matched element content, and set
+			//if no parameters, it will only get first element content
+			//if set,all matched elements contents will be set
+			console.log('html() log:' + $('p').html());
+			$('p').html(function (index, content) {
+				console.log(index);
+				console.log(content);
+				return 'p content will be changed...'
+			});
+			//---------------------------------------------------------------------------------------
+			
+			//text() same as html(), availabel(html,xml)
+			//---------------------------------------------------------------------------------------
+			
+			//val()
+			//get value of element
+			//example:
+			$('input').val()//get input value
+			$('input').val('set input')//set input value
+			//val(function (index, content))
+			
+		</script>
+	</body>
+</html>
+<!--the difference between attr() and prop() -->
+<!-- Attribute/Property			.attr()	.prop()
+accesskey							√
+align								√
+async								√		√
+autofocus							√		√
+checked								√		√
+class								√
+contenteditable						√
+draggable							√
+href								√
+id									√
+label								√
+location ( i.e. window.location )	√		√
+multiple							√		√
+readOnly							√		√
+rel									√
+selected							√		√
+src									√
+tabindex							√
+title								√
+type								√
+width ( if needed over .width() )	√ 		-->	 
